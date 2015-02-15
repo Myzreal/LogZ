@@ -172,7 +172,7 @@ public class LogZ {
 				if (temp.length < 10)
 					throw new ParseException("Line of type "+pattern+" should have at least 10 elements", lineIndex);
 				
-				// Get the killer!
+				// Get the victim!
 				// Start with his name.
 				name = ParseUtils.retrieveName(temp, 3, "has", "been");
 				nameTemp = name.split("id=");
@@ -183,24 +183,24 @@ public class LogZ {
 				if (id.equals("Unknown"))
 					break;
 				
-				// Recognize the vile killer!
-				Player killer = ParseUtils.retrievePlayer(id, name, log, lineIndex);
+				// Recognize the poor victim!
+				Player victim = ParseUtils.retrievePlayer(id, name, log, lineIndex);
 				
-				// Now let's find the victim.
-				// To get the name we need to first find out where the killer name ends.
+				// Now let's find the killer
+				// To get the name we need to first find out where the victim name ends.
 				int phraseLoc = ParseUtils.locatePhrase(temp, lineIndex, "has", "been", "killed", "by", "player");
 				// Now the name.
 				name = ParseUtils.retrieveName(temp, phraseLoc+5, null, null);	// TODO: HARDCODED OFFSET
 				nameTemp = name.split("id=");
 				name = nameTemp[0].substring(1, nameTemp[0].length()-2);
 				
-				// Now the victim's id.
+				// Now the killer's id.
 				id = nameTemp[1].substring(0, nameTemp[1].length()-1);
 				if (id.equals("Unknown"))
 					break;
 				
-				// Identify the victim.
-				Player victim = ParseUtils.retrievePlayer(id, name, log, lineIndex);
+				// Identify the killer.
+				Player killer = ParseUtils.retrievePlayer(id, name, log, lineIndex);
 				
 				// Now establish the time of murder.
 				datetime = ParseUtils.retrieveDatetime(temp, 0, currentDatetime, lineIndex);
